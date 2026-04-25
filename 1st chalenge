@@ -1,1 +1,119 @@
 
+Page selected
+
+NordPass homepage: https://nordpass.com/
+
+Ordered test cases by importance
+1. Critical CTA flow works correctly
+
+Testing type: Functional testing
+Priority: P1 – highest
+
+Preconditions: User opens NordPass homepage.
+
+Steps:
+
+1. Open https://nordpass.com/
+2. Click Sign Up
+3. Return to homepage
+4. Click Get a Quote
+5. Click Get Personal Plan
+6. Click Start Business Trial
+
+Expected result:
+Each CTA redirects to the correct relevant page. No broken links, wrong plan pages, 404 pages, or unexpected errors.
+
+Why ranked this way:
+CTA flow is the main conversion path. If users cannot sign up, request a quote, or select a plan, the homepage fails its primary business purpose.
+
+
+2. Business and Personal journeys are clearly separated
+
+Testing type: Functional / UX testing
+Priority: P1 - highest
+
+Steps:
+
+1. Open homepage
+2. Find Business section
+3. Click Business-related CTA
+4. Return and find Personal section
+5. Click Personal-related CTA
+
+Expected result:
+Business users are taken to business/trial/quote flow. Personal users are taken to personal plan flow. Copy, navigation, and destination pages should not confuse the two user types.
+
+Why ranked this way:
+NordPass serves both business and personal users. Wrong routing could cause confusion and lost conversions.
+
+
+3. Homepage is usable on mobile
+
+Testing type: Compatibility / Responsive testing
+Priority: P2 - Medium
+
+Devices/browsers:
+
+iPhone Safari
+Android Chrome
+Desktop Chrome/Edge
+
+Steps:
+
+1. Open homepage on mobile viewport
+2. Check header, burger menu, CTAs, cards, images, and footer
+3. Scroll through the full page
+4. Click main CTA buttons
+
+Expected result:
+No overlapping text, broken layout, hidden CTA buttons, horizontal scrolling, or unusable menus.
+
+Why ranked this way:
+Many users will land on the homepage from mobile ads/search. A broken mobile layout directly affects conversion.
+
+
+4. Homepage performance is acceptable
+
+Testing type: Performance testing
+Priority: P2 - Medium
+
+Steps:
+
+1. Open homepage in Chrome DevTools / Lighthouse
+2. Measure loading on normal and throttled network
+3. Check load time
+
+Expected result:
+Page loads quickly, main content appears without major delay, layout does not jump, images are optimized.
+
+Why ranked this way:
+Performance affects user trust, and experience. It is important, but not as critical as completely broken CTA flow.
+
+5. Accessibility of navigation and CTA elements
+
+Testing type: Accessibility testing
+Priority: P2 - Medium
+
+Steps:
+
+1. Navigate the page using only keyboard
+2. Check visible focus states
+3. Open menu using keyboard
+4. Check CTA buttons and links with screen reader
+5. Verify heading structure and image alt text
+
+Expected result:
+All interactive elements are reachable and understandable. Focus order is logical. CTA buttons have meaningful accessible names.
+
+Why ranked this way:
+Accessibility is important for legal, ethical, and usability reasons. It also improves quality for all users.
+
+
+Additional information that would help create more thorough test cases
+Target browsers/devices and minimum supported OS versions
+Expected CTA destination URLs
+Design/Figma files
+Accessibility standard target, for example WCAG 2.1 AA
+Performance targets
+Known risk areas or recently changed components
+Backend dependencies for quote/trial/signup flows
