@@ -1,1 +1,277 @@
-
+{
+  "info": {
+    "_postman_id": "febe7950-ef8a-4367-94f0-da8812c5283d",
+    "name": "Qestion1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53118888",
+    "_collection_link": "https://go.postman.co/collection/53118888-febe7950-ef8a-4367-94f0-da8812c5283d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "User_Login_Token_generation Copy",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// 1. Status code is 200",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// 2. Response time is acceptable",
+              "pm.test(\"Response time is less than 2000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});",
+              "",
+              "// 3. Response has JSON content-type",
+              "pm.test(\"Response has JSON content-type\", function () {",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+              "});",
+              "",
+              "// 4. Response body has token field",
+              "pm.test(\"Response body contains token\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"token\");",
+              "    pm.expect(jsonData.token).to.be.a(\"string\").and.not.empty;",
+              "});",
+              "",
+              "// 5. Save token to environment",
+              "const jsonData = pm.response.json();",
+              "if (jsonData && jsonData.token) {",
+              "    pm.environment.set(\"token\", jsonData.token);",
+              "    pm.test(\"Token saved to environment\", function () {",
+              "        pm.expect(pm.environment.get(\"token\")).to.eql(jsonData.token);",
+              "    });",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userName\": \"john@doe.com\",\r\n  \"Password\": \"veryStrongPassword\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://virtserver.swaggerhub.com/nord-s/User-API/1.0.0/v1/user/login",
+          "protocol": "https",
+          "host": [
+            "virtserver",
+            "swaggerhub",
+            "com"
+          ],
+          "path": [
+            "nord-s",
+            "User-API",
+            "1.0.0",
+            "v1",
+            "user",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "User_Items Copy",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// 1. Status code is 200",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// 2. Response time is acceptable",
+              "pm.test(\"Response time is less than 2000ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});",
+              "",
+              "// 3. Response has JSON content-type",
+              "pm.test(\"Response has JSON content-type\", function () {",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+              "});",
+              "",
+              "// 4. Response is an array",
+              "pm.test(\"Response is an array\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an(\"array\");",
+              "});",
+              "",
+              "// 5. Response array is not empty",
+              "pm.test(\"Response array is not empty\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.length).to.be.above(0);",
+              "});",
+              "",
+              "// 6. First element has items array",
+              "pm.test(\"First element contains items array\", function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData[0]).to.have.property(\"items\");",
+              "    pm.expect(jsonData[0].items).to.be.an(\"array\");",
+              "});",
+              "",
+              "// 7. Save items to environment variables",
+              "const jsonData = pm.response.json();",
+              "if (jsonData && jsonData[0] && jsonData[0].items) {",
+              "    const items = jsonData[0].items;",
+              "    pm.environment.set(\"item1\", items[0]);",
+              "    pm.environment.set(\"item2\", items[1]);",
+              "    pm.environment.set(\"item3\", items[2]);",
+              "    pm.test(\"Items saved to environment variables\", function () {",
+              "        pm.expect(pm.environment.get(\"item1\")).to.eql(items[0]);",
+              "        pm.expect(pm.environment.get(\"item2\")).to.eql(items[1]);",
+              "        pm.expect(pm.environment.get(\"item3\")).to.eql(items[2]);",
+              "    });",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://virtserver.swaggerhub.com/nord-s/User-API/1.0.0/user/items?limit=10",
+          "protocol": "https",
+          "host": [
+            "virtserver",
+            "swaggerhub",
+            "com"
+          ],
+          "path": [
+            "nord-s",
+            "User-API",
+            "1.0.0",
+            "user",
+            "items"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://virtserver.swaggerhub.com/nord-s/User-API/1.0.0/user/items?limit=10' \\\r\n  -H 'accept: application/json'"
+      },
+      "response": []
+    },
+    {
+      "name": "User_id_Item Copy",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://virtserver.swaggerhub.com/nord-s/User-API/1.0.0/user/{{item2}}}/item",
+          "protocol": "https",
+          "host": [
+            "virtserver",
+            "swaggerhub",
+            "com"
+          ],
+          "path": [
+            "nord-s",
+            "User-API",
+            "1.0.0",
+            "user",
+            "{{item2}}}",
+            "item"
+          ]
+        },
+        "description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://virtserver.swaggerhub.com/nord-s/User-API/1.0.0/user/adb9be68-7cf9-4ab3-9c23-b1e349464c98/item' \\\r\n  -H 'accept: application/json'"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
